@@ -87,6 +87,7 @@
                         class="shadow p-3 mb-5 bg-body rounded overflow-auto"></div>
                 </form>
             </div>
+
         </div>
     </nav>
     <main class="container-fluid">
@@ -102,6 +103,7 @@
                     <p>{{ randomPlace.description }}</p>
                     <img title="{{ randomPlace.pictures.0.title }}"
                         src="{{ asset('uploads/place/' ~ randomPlace.pictures.0.file) }}" class="img-fluid">
+
                 </div>
                 {% endfor %}
             </div>

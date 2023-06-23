@@ -84,4 +84,19 @@ class PlaceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Summary of findRandomPlaces
+     * @param mixed $count
+     * @return mixed
+     */
+    public function findRandomPlaces($count)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('RAND()')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
