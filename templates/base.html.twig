@@ -82,6 +82,13 @@
                 <div class="col-3">
                     <h2>2 lieux au hasard</h2>
                     {% for randomPlace in randomPlaces %}
+                    <div>
+                        <h3>{{ randomPlace.name }}</h3>
+                        <p>{{ randomPlace.description }}</p>
+                        <!-- Afficher d'autres informations sur le lieu si nécessaire -->
+                        <img title="{{ randomPlace.pictures.0.title }}"           
+                            src="{{ asset('uploads/place/' ~ randomPlace.pictures.0.file) }}" class="img-fluid">
+                    </div>
                     {% endfor %}
                 </div>
             </div>
