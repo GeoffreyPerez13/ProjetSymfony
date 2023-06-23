@@ -23,7 +23,6 @@ class TwigEventSubscriber implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $event): void
     {
         $this->twig->addGlobal('randomPlaces', $this->placeRepository->findRandomPlaces(2));
-        // $this->twig->addGlobal('randomPlaces', $this->placeRepository->findAll());
     }
 
     public static function getSubscribedEvents(): array
