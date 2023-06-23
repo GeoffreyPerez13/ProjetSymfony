@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat de votre recherche {{ keyword }} {% endblock %}
+
+{% block body %}
+
+<section class="row">
+<h1>{{ block('title') }}</h1>
+{{ include('front/_places.html.twig') }}
+</section>
+
+{% endblock %}

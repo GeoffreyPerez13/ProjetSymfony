@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau lieu{% endblock %}
+
+{% block body %}
+    <h1>Créez un nouveau lieu</h1>
+    <p><a href="{{ path('app_place_index') }}" class="btn btn-secondary">Retour</a></p>
+
+    {{ include('place/_form.html.twig') }}
+
+    
+{% endblock %}

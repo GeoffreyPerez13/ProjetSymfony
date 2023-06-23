@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les lieux insolites !{% endblock %}
+
+{% block body %}
+<section data-controller="display">
+    <button data-action="display#clickButton">Click me</button>
+
+    <p data-display-target ="text"></p>
+</section>
+<section class="row">
+{{ include('front/_places.html.twig') }}
+</section>
+
+{% endblock %}

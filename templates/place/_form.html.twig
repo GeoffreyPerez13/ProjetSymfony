@@ -1,0 +1,37 @@
+{% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    <h2>{{ 'form.gps'|trans({},'title') }}</h2>
+    {{ form_row(form.latitude) }}
+    {{ form_row(form.longitude) }}
+    <h2>Vos images du lieu </h2>
+    {% trans from 'pages' %}
+        <h4>Quelques informations sur vos images</h4>
+        <p>Vous pouvez envoyer vos images, sauf celle de votre camp naturiste !</p>
+    {% endtrans %}
+
+    <div data-controller ="pictures"
+        data-pictures-index-value="{{ form.pictures|length > 0 ? form.pictures|last.vars.name + 1 : 0 }}"
+        data-pictures-prototype-value="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
+        <div data-pictures-target = "collection">
+            {% if form.pictures|length > 0 %}
+            <p>{% trans with {'%nb%': form.pictures|length} %}%nb% pictures exists{% endtrans %}</p>
+            {% for picture in form.pictures %}
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    {{ form_row(picture.title) }}
+                    {{ form_row(picture.file) }}
+                    <h5>Changer l'image</h5> 
+                    {{ form_row(picture.pictureFile) }}
+                    <img src="/uploads/place/{{ picture.vars.data.file }}" width="150">
+                    <button class="btn btn-warning m-3" data-action="pictures#remove">Supprimer</button>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <button type="button" data-action="pictures#add" class="btn btn-outline-dark mb-5">+ Ajouter une image</button>
+    </div>
+
+    <button class="btn btn-success mb-5">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,21 @@
+{% for place in places %}
+<article class="col-3">
+    <div class="row">
+        <div class="col-6">
+            <h2>{{ place.name }}</h2>
+            <p class="lead">
+                Posté par {{ place.user.username }} le {{ place.createdAt|date('d/m/Y')}}
+            </p>
+        </div>
+        <div class="col-6 mt-2 text-end">
+            <a href="{{ path('app_view',{slug: place.slug}) }}" class="btn btn-secondary">Voir</a>
+        </div>
+        <div class="overflow-hidden" style="max-height:300px;">
+            {% if place.pictures|length > 0 %}
+            <img title="{{ place.pictures.0.title }}" src="{{ asset('uploads/place/' ~ place.pictures.0.file) }}"
+                class="img-fluid">
+            {% endif %}
+        </div>
+    </div>
+</article>
+{% endfor %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ place.name }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+{% endblock %}
+
+{% block body %}
+<a href="{{ path('app_front') }}" class="btn btn-secondary mt-3">Retour</a>
+<article class="row">
+    <h1>{{ place.name }}</h1>
+    
+    <div class="col-6">
+        <p class="lead">
+            {% trans with {'%username%':place.user.username, '%date%': place.createdAt|date('d/m/Y')} %}
+            Place.PostedBy
+            {% endtrans %}
+        </p>
+        <blockquote class="blockquote">{{ place.description }}</blockquote> 
+        <div id="map" style="height:300px; width:100%"></div>
+    </div>
+    <div class="col-6">
+        {% if place.pictures| length > 0 %}
+            <h3>Galerie</h3>
+            <div class="row">
+                {% for picture in place.pictures %}
+                <div class="col-6 mb-3"><img title="{{ picture.title }}" src="{{ asset('uploads/place/' ~ picture.file) }}" class="img-fluid"></div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</article>
+</div>
+
+<script>
+    var map = L.map('map').setView([{{ place.latitude }}, {{ place.longitude }} ], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([{{ place.latitude }}, {{ place.longitude }}]).addTo(map)
+        .bindPopup('{{ place.name }}')
+        .openPopup();
+</script>
+{% endblock %}
