@@ -6,6 +6,9 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '15'
     orm:
+        dql:
+            numeric_functions:
+                rand: DoctrineExtensions\Query\Mysql\Rand
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -26,6 +29,9 @@ when@test:
 when@prod:
     doctrine:
         orm:
+            dql:
+                numeric_functions:
+                    rand: DoctrineExtensions\Query\Mysql\Rand
             auto_generate_proxy_classes: false
             proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
             query_cache_driver:
